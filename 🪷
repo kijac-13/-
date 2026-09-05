@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para Vane 🌸</title>
+<style>
+body{margin:0;background:#0a0a23;color:#fff;font-family:system-ui;text-align:center;overflow:hidden}
+.planet{width:270px;height:270px;margin:45px auto 10px;background:radial-gradient(circle at 30% 30%,#f9a8d4,#9333ea);border-radius:50%;box-shadow:0 0 40px #ec4899,0 0 70px #7c3aed;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;line-height:1.3;animation:f 4s ease-in-out infinite;position:relative;z-index:2}
+@keyframes f{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.box{width:90%;max-width:340px;height:180px;margin:10px auto;background:rgba(255,255,255,.08);border-radius:18px;padding:15px;overflow:hidden;position:relative;z-index:2}
+.l{opacity:.35;transition:.3s;line-height:1.9;font-size:15px}
+.l.active{opacity:1;color:#fbcfe8;font-weight:800;text-shadow:0 0 12px #ec4899;transform:scale(1.07)}
+audio{width:90%;max-width:340px;margin-top:10px;position:relative;z-index:2}
+.flower{position:fixed;top:-10px;font-size:22px;animation:fall linear forwards;z-index:1}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+</style>
+</head>
+<body>
+<h1 style="font-size:14px;opacity:.8;position:relative;z-index:2">Para Vane, mi florecita (menos girasoles) 🌸💜</h1>
+<div class="planet" onclick="document.getElementById('a').play()">Para Vane 💜<br>🌷🌸🌹<br><span style="font-size:12px">menos girasoles</span></div>
+<div class="box" id="box"></div>
+<audio id="a" controls src="cancion.mp3"></audio>
+<script>
+function createFlower(){const e=document.createElement('div');e.className='flower';e.innerText=['🌸','🌷','💜','🌹','✨'][Math.floor(Math.random()*5)];e.style.left=Math.random()*100+'vw';e.style.animationDuration=(3+Math.random()*4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),7000)} setInterval(createFlower,300);
+const lyrics=[
+[0,"✨ Para ti, que no te gustan los girasoles ✨"],
+[11,"El brillo de tus ojos me ilumina"],
+[15,"Me gusta verte cuando a mi lado caminas"],
+[19,"Si me das un beso me sube la adrenalina"],
+[23,"Me quitas el dolor como las aspirinas"],
+[28,"Un paseo por el parque"],
+[31,"Anda ven tengo mucho que contarte"],
+[34,"Mira que ya se está haciendo tarde"],
+[37,"Si quieres conmigo puedes quedarte"],
+[42,"¿Cómo ves si vamos para otra parte?"],
+[46,"De verdad no quisiera incomodarte"],
+[49,"Perdona si no dejo de mirarte"],
+[52,"No soporto que estemos tan distantes"],
+[57,"Cuando toco tu piel yo me puedo perder"],
+[61,"Comenzamos a arder"],
+[64,"Tú déjate querer, mi florecita 💜🌸"],
+[69,"Cuando toco tu piel yo me puedo perder"],
+[73,"Comenzamos a arder"],
+[76,"Tú déjate querer"],
+[82,"Navegando por tu cuerpo yo crucé tu frontera"],
+[90,"Yo te quiero de a de veras"],
+[94,"Me gustas de una y más de mis maneras"],
+[105,"Nena tú tienes la cura"],
+[113,"Apaguemos la luz"],
+[116,"Que quiero hacerte el amor a oscuras"],
+[122,"Y se mojan las sábanas 🌸"],
+[131,"Cuando estemos en la intimidad"],
+[136,"Anda ya no seas tan tímida"],
+[142,"Acariarte con tranquilidad"],
+[148,"Cuando toco tu piel yo me puedo perder"],
+[152,"Comenzamos a arder"],
+[155,"Tú déjate querer, Vane 🌸💜"]
+];
+const box=document.getElementById('box');
+lyrics.forEach((x,i)=>{let d=document.createElement('div');d.className='l';d.id='l'+i;d.innerText=x[1];box.appendChild(d)});
+const a=document.getElementById('a');
+a.addEventListener('ratechange',()=>{if(a.playbackRate!==1)a.playbackRate=1});
+a.addEventListener('timeupdate',()=>{
+ let t=a.currentTime, idx=0; lyrics.forEach((l,i)=>{if(t>=l[0]) idx=i});
+ document.querySelectorAll('.l').forEach(e=>e.classList.remove('active'));
+ let cur=document.getElementById('l'+idx); if(cur){cur.classList.add('active');cur.scrollIntoView({behavior:'smooth',block:'center'})}
+});
+</script>
+</body>
+</html>
